@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Library</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f4f7f6;color:#24352f}
+header{background:#14532d;color:white;padding:25px;text-align:center}
+nav{background:#166534;padding:14px;text-align:center}
+nav a{color:white;text-decoration:none;margin:15px}
+.container{padding:25px;max-width:1100px;margin:auto}
+.search{width:100%;padding:13px;border:1px solid #ccc;border-radius:8px;margin:15px 0}
+h2{color:#166534}
+.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:15px}
+.category{background:white;padding:20px;text-align:center;border-radius:10px;box-shadow:0 2px 8px #ddd}
+.books{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
+.book{background:white;padding:20px;border-radius:10px;text-align:center;box-shadow:0 2px 8px #ddd}
+.cover{height:150px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:45px;border-radius:8px}
+.available{color:green;font-weight:bold}
+.unavailable{color:#dc2626;font-weight:bold}
+button{background:#15803d;color:white;border:0;padding:10px 15px;border-radius:6px;cursor:pointer}
+table{width:100%;border-collapse:collapse;background:white}
+th,td{padding:12px;border-bottom:1px solid #ddd;text-align:left}
+th{background:#dcfce7}
+.rules{background:white;padding:20px;border-radius:10px;margin-top:25px}
+footer{background:#14532d;color:white;text-align:center;padding:18px;margin-top:30px}
+@media(max-width:500px){nav a{margin:5px;display:inline-block}.container{padding:15px}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Digital Library</h1>
+<p>Read More, Learn More</p>
+</header>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#categories">Categories</a>
+<a href="#books">Books</a>
+<a href="#rules">Library Rules</a>
+</nav>
+
+<div class="container" id="home">
+<h2>Find Your Favourite Book</h2>
+<input class="search" type="text" id="search"
+placeholder="Search by book title or author..."
+oninput="filterBooks()">
+
+<h2 id="categories">Book Categories</h2>
+<div class="categories">
+<div class="category">📘<p>Technology</p></div>
+<div class="category">📗<p>Science</p></div>
+<div class="category">📕<p>Literature</p></div>
+<div class="category">📙<p>Mathematics</p></div>
+</div>
+
+<h2 id="books">Popular Books</h2>
+<div class="books" id="bookList">
+<div class="book" data-name="python programming guido">
+<div class="cover">🐍</div>
+<h3>Python Programming</h3>
+<p>Author: Guido van Rossum</p>
+<p class="available">Available</p>
+<button onclick="alert('Please contact the librarian to borrow this book.')">Borrow Book</button>
+</div>
+
+<div class="book" data-name="wings of fire apj abdul kalam">
+<div class="cover">🚀</div>
+<h3>Wings of Fire</h3>
+<p>Author: A.P.J. Abdul Kalam</p>
+<p class="available">Available</p>
+<button onclick="alert('Please contact the librarian to borrow this book.')">Borrow Book</button>
+</div>
+
+<div class="book" data-name="rich dad poor dad robert kiyosaki">
+<div class="cover">💰</div>
+<h3>Rich Dad Poor Dad</h3>
+<p>Author: Robert Kiyosaki</p>
+<p class="unavailable">Not Available</p>
+<button onclick="alert('This book is currently unavailable.')">Check Book</button>
+</div>
+
+<div class="book" data-name="let us c yashavant kanetkar">
+<div class="cover">💻</div>
+<h3>Let Us C</h3>
+<p>Author: Yashavant Kanetkar</p>
+<p class="available">Available</p>
+<button onclick="alert('Please contact the librarian to borrow this book.')">Borrow Book</button>
+</div>
+</div>
+
+<h2>Book Catalog</h2>
+<div style="overflow-x:auto">
+<table>
+<tr><th>Book ID</th><th>Book Name</th><th>Author</th><th>Status</th></tr>
+<tr><td>B101</td><td>Python Programming</td><td>Guido van Rossum</td><td>Available</td></tr>
+<tr><td>B102</td><td>Wings of Fire</td><td>A.P.J. Abdul Kalam</td><td>Available</td></tr>
+<tr><td>B103</td><td>Rich Dad Poor Dad</td><td>Robert Kiyosaki</td><td>Issued</td></tr>
+<tr><td>B104</td><td>Let Us C</td><td>Yashavant Kanetkar</td><td>Available</td></tr>
+</table>
+</div>
+
+<div class="rules" id="rules">
+<h2>Library Rules</h2>
+<ul>
+<li>Maintain silence inside the library.</li>
+<li>Return borrowed books before the due date.</li>
+<li>Keep books clean and safe.</li>
+<li>Carry your college ID card.</li>
+<li>Do not damage library property.</li>
+</ul>
+</div>
+</div>
+
+<footer>
+<p>© 2026 Digital Library Management System</p>
+</footer>
+
+<script>
+function filterBooks(){
+let input=document.getElementById("search").value.toLowerCase();
+let books=document.querySelectorAll(".book");
+books.forEach(function(book){
+book.style.display=book.dataset.name.includes(input)?"block":"none";
+});
+}
+</script>
+</body>
+</html>

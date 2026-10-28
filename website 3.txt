@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Shopping</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f5f5f5;color:#222}
+header{background:#131921;color:white;padding:18px 25px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+header h1{margin:0;color:#fbbf24}
+nav{background:#232f3e;padding:14px}
+nav a{color:white;text-decoration:none;margin:15px}
+.banner{background:linear-gradient(120deg,#2563eb,#9333ea);color:white;text-align:center;padding:45px 15px}
+.banner h2{font-size:32px}
+.container{padding:25px;max-width:1200px;margin:auto}
+.search{width:100%;padding:13px;border:1px solid #ccc;border-radius:7px}
+.categories{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
+.categories button{padding:11px 18px;background:white;border:1px solid #ddd;border-radius:20px;cursor:pointer}
+.categories button:hover{background:#2563eb;color:white}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.product{background:white;padding:18px;border-radius:12px;text-align:center;box-shadow:0 2px 8px #ddd;transition:transform .3s}
+.product:hover{transform:translateY(-5px)}
+.image{height:150px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:65px;border-radius:8px}
+.price{color:#15803d;font-size:21px;font-weight:bold}
+.old{text-decoration:line-through;color:#777;font-size:14px}
+.discount{color:#dc2626;font-weight:bold}
+.rating{color:#f59e0b}
+button{cursor:pointer}
+.buy{background:#fbbf24;border:0;padding:11px 18px;border-radius:20px;width:100%;margin-top:10px}
+.buy:hover{background:#f59e0b}
+.cart{color:#fbbf24}
+footer{background:#131921;color:white;text-align:center;padding:22px;margin-top:30px}
+@media(max-width:500px){header{display:block}nav a{display:inline-block;margin:7px}.container{padding:15px}.banner h2{font-size:25px}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>ShopEasy</h1>
+<div>Quality Products, Best Prices</div>
+<div class="cart">🛒 Cart: <span id="cart">0</span></div>
+</header>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#categories">Categories</a>
+<a href="#products">Products</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<div class="banner" id="home">
+<h2>Big Shopping Festival!</h2>
+<p>Discover amazing deals on your favourite products.</p>
+<h3>Up to 50% OFF</h3>
+</div>
+
+<div class="container">
+<input class="search" type="text" id="search"
+placeholder="Search products..."
+oninput="filterProducts()">
+
+<h2 id="categories">Shop by Category</h2>
+<div class="categories">
+<button onclick="filterCategory('all')">All</button>
+<button onclick="filterCategory('electronics')">Electronics</button>
+<button onclick="filterCategory('fashion')">Fashion</button>
+<button onclick="filterCategory('accessories')">Accessories</button>
+</div>
+
+<h2 id="products">Featured Products</h2>
+<div class="products" id="productList">
+
+<div class="product" data-category="electronics" data-name="headphones">
+<div class="image">🎧</div>
+<h3>Wireless Headphones</h3>
+<p class="rating">★★★★★ (4.5)</p>
+<p class="price">₹1,499</p>
+<p class="old">₹2,999</p>
+<p class="discount">50% OFF</p>
+<p>High-quality wireless sound.</p>
+<button class="buy" onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="product" data-category="electronics" data-name="smartphone">
+<div class="image">📱</div>
+<h3>Smartphone</h3>
+<p class="rating">★★★★☆ (4.2)</p>
+<p class="price">₹12,999</p>
+<p class="old">₹15,999</p>
+<p class="discount">19% OFF</p>
+<p>Smartphone with modern features.</p>
+<button class="buy" onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="product" data-category="fashion" data-name="shoes">
+<div class="image">👟</div>
+<h3>Running Shoes</h3>
+<p class="rating">★★★★★ (4.6)</p>
+<p class="price">₹1,199</p>
+<p class="old">₹1,999</p>
+<p class="discount">40% OFF</p>
+<p>Comfortable shoes for daily use.</p>
+<button class="buy" onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="product" data-category="fashion" data-name="tshirt">
+<div class="image">👕</div>
+<h3>Casual T-Shirt</h3>
+<p class="rating">★★★★☆ (4.1)</p>
+<p class="price">₹499</p>
+<p class="old">₹799</p>
+<p class="discount">38% OFF</p>
+<p>Stylish cotton casual T-shirt.</p>
+<button class="buy" onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="product" data-category="accessories" data-name="watch">
+<div class="image">⌚</div>
+<h3>Smart Watch</h3>
+<p class="rating">★★★★★ (4.4)</p>
+<p class="price">₹1,999</p>
+<p class="old">₹2,999</p>
+<p class="discount">33% OFF</p>
+<p>Track time and daily activity.</p>
+<button class="buy" onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="product" data-category="accessories" data-name="backpack">
+<div class="image">🎒</div>
+<h3>Travel Backpack</h3>
+<p class="rating">★★★★☆ (4.3)</p>
+<p class="price">₹899</p>
+<p class="old">₹1,299</p>
+<p class="discount">31% OFF</p>
+<p>Spacious bag for college and travel.</p>
+<button class="buy" onclick="addToCart()">Add to Cart</button>
+</div>
+
+</div>
+</div>
+
+<footer id="contact">
+<h3>ShopEasy Online Store</h3>
+<p>Email: support@shopeasy.example</p>
+<p>© 2026 ShopEasy. All rights reserved.</p>
+</footer>
+
+<script>
+let count=0;
+function addToCart(){
+count++;
+document.getElementById("cart").textContent=count;
+alert("Product added to cart!");
+}
+
+function filterProducts(){
+let text=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".product").forEach(function(p){
+p.style.display=p.dataset.name.includes(text)?"block":"none";
+});
+}
+
+function filterCategory(category){
+document.getElementById("search").value="";
+document.querySelectorAll(".product").forEach(function(p){
+p.style.display=(category==="all"||p.dataset.category===category)?"block":"none";
+});
+}
+</script>
+</body>
+</html>
